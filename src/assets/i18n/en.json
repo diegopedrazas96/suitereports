@@ -1,0 +1,52 @@
+{
+    "TABS_VENTAS":{
+        "title":"Sales Report",
+        "fecha_ini" : "Since",
+        "fecha_fin" : "Until",
+        "sub_title" : "Sales Detail",
+        "det_precio" : "Price",
+        "det_cantidad" : "Quantity",
+        "det_subtotal" : "SubTotal",
+        "det_total" : "Total",
+        "buscar" : "Search",
+        "sucursal" : "Branch",
+        "grupo" : "Group"
+    },
+    "TABS_GENERAL":{
+        "tab_venta":"Sales",
+        "tab_factura" : "Invoices",
+        "tab_inventario" : "Inventory",
+        "tab_perfil" : "Profile"        
+    },
+    "TABS_FACTURAS":{
+        "title":"Invoices Report",
+        "fecha_ini" : "Since",
+        "fecha_fin" : "Until",
+        "sub_title" : "Invoices Detail",
+        "det_nit" : "Nit",
+        "det_nombre" : "Name",
+        "det_imptneto" : "Net Amount",
+        "det_total" : "Total",
+        "alert_suc" : "Select a Branch!",
+        "alert_cargando" : "Loading Information..."
+    },
+    "TABS_INVENTARIO":{
+        "title":"Warehouse Report",
+        "sub_title" : "Warehouse Detail",
+        "disponible" : "Disponibility",
+        "almacen" : "Warehouse",
+        "costo" : "Cost",
+        "venta" : "Sale"
+    },
+    "TABS_PERFIL":{
+        "title":"Profile Information",
+        "usuario" : "User",
+        "nombre" : "Name",
+        "empresa" : "Company",
+        "sucursales" : "Branches",
+        "btn_cerrar_sesion" : "SIGN OUT"
+    },
+    "MESSAGES":{
+        "sin_datos_traducir":"No data to translate!"
+    }
+}

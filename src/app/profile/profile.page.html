@@ -1,0 +1,34 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-title>{{'TABS_PERFIL.title' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+	<ion-item color="primary">
+        <ion-label  [(ngModel)]="usuario.usuario">{{'TABS_PERFIL.usuario' | translate}}: {{ usuario.usuario}}</ion-label>    
+      </ion-item>    
+
+	  <ion-item color="primary">
+        <ion-label  [(ngModel)]="usuario.nombre">{{'TABS_PERFIL.nombre' | translate}}: {{ usuario.nombre}}</ion-label>    
+	  </ion-item>  
+	  
+	  <ion-item color="primary">
+        <ion-label  [(ngModel)]="usuario.empresa.Descripcion">{{'TABS_PERFIL.empresa' | translate}}: {{ usuario.empresa.Descripcion}}</ion-label>    
+	  </ion-item>  
+	  
+	  
+	  <ion-list color="primary">
+	  <ion-list-header color="secondary"> {{'TABS_PERFIL.sucursales' | translate}}</ion-list-header>
+
+		<ion-item color="primary" *ngFor= "let obj of usuario.lstServidores">
+		  <ion-label text-wrap>
+			<h2>{{obj.Nombre}}</h2>			
+		  </ion-label>
+		  <ion-reorder slot="end"></ion-reorder>
+		</ion-item>
+	  </ion-list>
+	  <ion-button color="dark" shape="round" expand="block" (click)="closeSesion()" >{{'TABS_PERFIL.btn_cerrar_sesion' | translate}}</ion-button>
+	
+</ion-content>

@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Idiomas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item button *ngFor="let item of languages" (click)="select(item.value)" detail = "false"> 
+      <img [src]="item.img" width="80" height="80" slot="start"> 
+      <ion-label text-wrap>
+          {{ item.text}}
+      </ion-label>
+      <ion-icon slot="end" name="checkmark"  *ngIf="item.value === selected"></ion-icon>
+    </ion-item>
+  
+
+  </ion-list>
+
+  <ion-button color="dark" shape="round" expand="block" (click)="continuar()" >Continuar</ion-button>
+	
+</ion-content>

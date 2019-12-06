@@ -1,0 +1,53 @@
+{
+    "TABS_VENTAS":{
+        "title":"Reporte de Ventas",
+        "fecha_ini" : "Desde",
+        "fecha_fin" : "Hasta",
+        "sub_title" : "Detalle de Ventas",
+        "det_precio" : "Precio",
+        "det_cantidad" : "Cantidad",
+        "det_subtotal" : "SubTotal",
+        "det_total" : "Total",
+        "buscar" : "Buscar",
+        "sucursal" : "Sucursal",
+        "grupo" : "Grupo"
+    },
+    "TABS_GENERAL":{
+        "tab_venta":"Ventas",
+        "tab_factura" : "Facturas",
+        "tab_inventario" : "Inventario",
+        "tab_perfil" : "Perfil"        
+    },
+    "TABS_FACTURAS":{
+        "title":"Reporte de Facturas",
+        "fecha_ini" : "Desde",
+        "fecha_fin" : "Hasta",
+        "sub_title" : "Detalle de Facturas",
+        "det_nit" : "Nit",
+        "det_nombre" : "Nombre",
+        "det_imptneto" : "Importe Neto",
+        "det_total" : "Total",
+        "alert_suc" : "Seleccione una Sucursal!",
+        "alert_cargando" : "Cargando Información..."
+    },
+    "TABS_INVENTARIO":{
+        "title":"Reporte de Inventario",
+        "sub_title" : "Detalle de Inventario",
+        "disponible" : "Disponible",
+        "almacen" : "Almacen",
+        "costo" : "Costo",
+        "venta" : "Venta"
+    },
+    "TABS_PERFIL":{
+        "title":"Datos de Perfil",
+        "usuario" : "Usuario",
+        "nombre" : "Nombre",
+        "empresa" : "Empresa",
+        "sucursales" : "Sucursales",
+        "btn_cerrar_sesion" : "CERRAR SESIÓN"
+    },
+    "MESSAGES":{
+        "sin_datos_traducir":"No existen datos para traducir!"
+    }
+       
+}

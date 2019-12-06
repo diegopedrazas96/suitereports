@@ -1,0 +1,37 @@
+<ion-header >
+  <ion-toolbar color="primary">
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  class="background">
+	
+		<app-loading padding-top="50%" *ngIf="busy"></app-loading>
+
+		<ion-item >
+		  <ion-label color="primary" position="floating">Usuario</ion-label>
+		  <ion-input type="text" [(ngModel)]="username"></ion-input>
+		</ion-item>
+	  
+		<ion-item>
+		  <ion-label color="primary" position="floating">Contraseña</ion-label>
+		  <ion-input type="password" [(ngModel)]="password"></ion-input>
+		</ion-item>
+	  
+	  
+
+	  <ion-button fill="solid" expand="block" color="success" (click)="login()">Ingresar</ion-button>
+</ion-content>
+
+
+<ion-footer>
+				<ion-button  href= "https://api.whatsapp.com/send?phone=59170972104" expand = "full"  >
+						<ion-icon slot="icon-only" name="logo-whatsapp"></ion-icon>
+						<ion-label  text-center > Whatsapp : (+591)70972104</ion-label> 
+				</ion-button>
+			
+				<ion-button  href= "https://www.facebook.com/megasystem.com.bo/" expand = "full"  >
+						<ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
+						<ion-label  text-center >Megasystem</ion-label>
+				</ion-button>
+</ion-footer>

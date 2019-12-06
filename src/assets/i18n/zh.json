@@ -1,0 +1,52 @@
+{
+    "TABS_VENTAS":{
+        "title":"销售报告",
+        "fecha_ini" : "首页",
+        "fecha_fin" : "完结",
+        "sub_title" : "销售明细",
+        "det_precio" : "价钱",
+        "det_cantidad" : "数量",
+        "det_subtotal" : "小计",
+        "det_total" : "合计",        
+        "buscar" : "寻找",
+        "sucursal" : "分公司",
+        "grupo" : "组别"
+    },
+    "TABS_GENERAL":{
+        "tab_venta":"销售量",
+        "tab_factura" : "发票",
+        "tab_inventario" : "库存",
+        "tab_perfil" : "个人资料"        
+    },
+    "TABS_FACTURAS":{
+        "title":"发票报告",
+        "fecha_ini" : "首页",
+        "fecha_fin" : "完结",
+        "sub_title" : "发票明细",
+        "det_nit" : "尼特",
+        "det_nombre" : "名",
+        "det_imptneto" : "净额",
+        "det_total" : "合计",
+        "alert_suc" : "选择一个分支！",
+        "alert_cargando" : "加载信息..."
+    },
+    "TABS_INVENTARIO":{
+        "title":"库存报告",
+        "sub_title" : "库存明细",
+        "disponible" : "可用的",
+        "almacen" : "仓库",
+        "costo" : "费用",
+        "venta" : "特卖"
+    },
+    "TABS_PERFIL":{
+        "title":"个人资料数据",
+        "usuario" : "用户名",
+        "nombre" : "名",
+        "empresa" : "公司名称",
+        "sucursales" : "分行",
+        "btn_cerrar_sesion" : "结束会议"
+    },
+    "MESSAGES":{
+        "sin_datos_traducir":"没有要翻译的数据！"
+    }
+}
