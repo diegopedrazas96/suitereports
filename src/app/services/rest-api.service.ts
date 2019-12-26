@@ -41,23 +41,16 @@ export class RestApiService {
 
 
   getData(): Observable<any> {
-    //let headers = new HttpHeaders();
-    //headers.append()
+   
     let response1 = this.http.get(apiUrl+'api/product/list');
     let servers = this.usrService.getServidores();
-    //let response2= this.http.get(apiUrl+'IN/110001');
-   // let response3 = this.http.get(apiUrl+'BR/01000-000');
-    //let response4 = this.http.get(apiUrl+'FR/01000');
-    //return forkJoin([response1, response2, response3, response4]);
+  
     return forkJoin([response1]);
   }
 
   getVentas(initDate : string,finalDate:string,strIp : string,strInfraestructura : string,strIdSucursal : string): Observable<any> {
-    //let headers = new HttpHeaders();
-    //headers.append()
-    //let response1 = this.http.get(apiUrl+'api/product/list');
+   
     let response1 ;
-    //let servers = this.usrService.getServidores();
     let objEmpresa = this.usrService.getEmpresa();
 
     try {
@@ -65,25 +58,48 @@ export class RestApiService {
      } catch (error) {
        console.log(error.message);
      }
-    /*servers.forEach(element => {
-        
+    /*servers.forEach(element => {   
     });*/
-
-    
     //let response2= this.http.get(apiUrl+'IN/110001');
    // let response3 = this.http.get(apiUrl+'BR/01000-000');
     //let response4 = this.http.get(apiUrl+'FR/01000');
     //return forkJoin([response1, response2, response3, response4]);
     return forkJoin([response1]);
   }
+  getVentasTotal(initDate : string,finalDate:string,strIp : string,strInfraestructura : string,strIdSucursal : string): Observable<any> {
+   
+    let response1 ;
+    let objEmpresa = this.usrService.getEmpresa();
 
+    try {
+      response1 = this.http.get("http://"+strIp+'/megav2/api/ionicreports/ventastotal/'+objEmpresa.Tipo+'/'+initDate + '/'+finalDate+'/'+strInfraestructura+'/'+strIdSucursal);
+     } catch (error) {
+       console.log(error.message);
+     }
+    
+    return forkJoin([response1]);
+  }
+
+  getResumen(initDate : string,finalDate:string,strIp : string,strInfraestructura : string): Observable<any> {
+   
+    let response1 ;
+    let objEmpresa = this.usrService.getEmpresa();
+
+    try {
+      response1 = this.http.get("http://"+strIp+'/megav2/api/ionicreports/resumen/'+objEmpresa.Tipo+'/'+initDate + '/'+finalDate+'/'+strInfraestructura);
+     } catch (error) {
+       console.log(error.message);
+     }
+   
+    return forkJoin([response1]);
+  }
   getFacturas(initDate : string,finalDate:string,strIp : string,strInfraestructura:string , strIdSucursal): Observable<any> {
    
     let response1 ;
     let servers = this.usrService.getServidores();
-    
+    let objEmpresa = this.usrService.getEmpresa();
     try {
-      response1 = this.http.get("http://"+strIp+'/megav2/api/ionicreports/facturas/'+initDate + '/'+finalDate + '/'+strInfraestructura+'/'+strIdSucursal);
+      response1 = this.http.get("http://"+strIp+'/megav2/api/ionicreports/facturas/'+objEmpresa.Tipo+"/"+initDate + '/'+finalDate + '/'+strInfraestructura+'/'+strIdSucursal);
      } catch (error) {
        console.log(error.message);
      }
@@ -104,13 +120,42 @@ export class RestApiService {
   }
 
 
-  getInventario(dirIP:String,strTipo:string , strIdSucursal): Observable<any> {
+  getInventario(dirIP:String,strTipo:string , strIdSucursal:string): Observable<any> {
     
     let response1 ;
     let servers = this.usrService.getServidores();
     let objEmpresa = this.usrService.getEmpresa();
     try {
       response1 = this.http.get("http://"+dirIP+'/megav2/api/ionicreports/inventario/'+strTipo+'/'+strIdSucursal);
+     } catch (error) {
+       console.log(error.message);
+     }
+   
+
+    return forkJoin([response1]);
+  }
+  getCompras(dirIP:String,strTipo:string , strIdSucursal : string,initDate : string,finalDate:string): Observable<any> {
+    
+    let response1 ;
+    let servers = this.usrService.getServidores();
+    let objEmpresa = this.usrService.getEmpresa();
+    try {
+      response1 = this.http.get("http://"+dirIP+'/megav2/api/ionicreports/compras/'+strTipo+'/'+strIdSucursal+'/'+initDate +'/'+finalDate);
+     } catch (error) {
+       console.log(error.message);
+     }
+   
+
+    return forkJoin([response1]);
+  }
+
+  getComprasTotal(dirIP:String,strTipo:string , strIdSucursal : string,initDate : string,finalDate:string): Observable<any> {
+    
+    let response1 ;
+    let servers = this.usrService.getServidores();
+    let objEmpresa = this.usrService.getEmpresa();
+    try {
+      response1 = this.http.get("http://"+dirIP+'/megav2/api/ionicreports/comprastotal/'+strTipo+'/'+strIdSucursal+'/'+initDate +'/'+finalDate);
      } catch (error) {
        console.log(error.message);
      }

@@ -7,13 +7,10 @@ const routes: Routes = [
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule',canActivate: [AuthService]},
   { path: 'language', loadChildren: './language/language.module#LanguagePageModule',canActivate: [AuthService] },
-  
- 
-  //{ path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule', canActivate: [AuthService] },
-  
+
+
 ];
 
-// localhost/tabs
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

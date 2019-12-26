@@ -12,11 +12,25 @@
         "sucursal" : "Branch",
         "grupo" : "Group"
     },
+    "TABS_COMPRAS":{
+        "title":"Purchases Report",
+        "fecha_ini" : "Since",
+        "fecha_fin" : "Until",
+        "costo" : "Cost",
+        "det_cantidad" : "Quantity",
+        "det_subtotal" : "SubTotal",
+        "det_total" : "Total",
+        "buscar" : "Search",
+        "sucursal" : "Branch",
+        "grupo" : "Provider"
+    },
     "TABS_GENERAL":{
         "tab_venta":"Sales",
         "tab_factura" : "Invoices",
         "tab_inventario" : "Inventory",
-        "tab_perfil" : "Profile"        
+        "tab_perfil" : "Profile",
+        "tab_resumen" : "Summary",
+        "tab_compra" : "Purchases"           
     },
     "TABS_FACTURAS":{
         "title":"Invoices Report",
@@ -28,7 +42,8 @@
         "det_imptneto" : "Net Amount",
         "det_total" : "Total",
         "alert_suc" : "Select a Branch!",
-        "alert_cargando" : "Loading Information..."
+        "alert_cargando" : "Loading Information...",
+        "nro_factura" : "Invoice Number"
     },
     "TABS_INVENTARIO":{
         "title":"Warehouse Report",
@@ -36,7 +51,8 @@
         "disponible" : "Disponibility",
         "almacen" : "Warehouse",
         "costo" : "Cost",
-        "venta" : "Sale"
+        "venta" : "Sale",
+        "valorado" : "Valued Inv."
     },
     "TABS_PERFIL":{
         "title":"Profile Information",
@@ -48,5 +64,11 @@
     },
     "MESSAGES":{
         "sin_datos_traducir":"No data to translate!"
+    },
+    "TABS_RESUMEN":{
+        "title":"General Summary",
+        "fecha_ini" : "Since",
+        "fecha_fin" : "Until",
+        "sucursal" : "Branch"
     }
 }

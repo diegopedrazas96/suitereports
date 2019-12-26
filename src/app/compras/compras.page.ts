@@ -1,35 +1,24 @@
-import { Component, OnInit, ViewChild, ElementRef ,NgZone, ViewChildren} from '@angular/core';
-import { LoadingController, AlertController, PopoverController } from '@ionic/angular';
-import { RestApiService } from '../services/rest-api.service';
-import { DatePipe } from '@angular/common'
-import { Chart } from "chart.js";
-import { GoogletranslateService, GoogleObj } from '../services/googletranslate.service';
-import { UserService } from '../user.service';
-import { PopinfoComponent } from '../components/popinfo/popinfo.component';
-import { ThrowStmt } from '@angular/compiler';
-import {Empresa} from '../entities/Empresa';
+import { Component, OnInit } from '@angular/core';
 import { Servidor } from '../entities/Servidor';
-import { TranslateService } from '@ngx-translate/core';
-import { Infraestructura } from '../entities/Enumeradores';
-import { PopinfosucursalComponent } from '../components/popinfosucursal/popinfosucursal.component';
 import { Sucursal } from '../entities/Sucursal';
+import { RestApiService } from '../services/rest-api.service';
+import { LoadingController, AlertController, PopoverController } from '@ionic/angular';
+import { DatePipe } from '@angular/common';
+import { UserService } from '../user.service';
+import { GoogletranslateService } from '../services/googletranslate.service';
+import { TranslateService } from '@ngx-translate/core';
+import { PopinfoComponent } from '../components/popinfo/popinfo.component';
+import { PopinfosucursalComponent } from '../components/popinfosucursal/popinfosucursal.component';
+import { Infraestructura } from '../entities/Enumeradores';
 
 @Component({
-  selector: 'app-ventas',
-  templateUrl: './ventas.page.html',
-  styleUrls: ['./ventas.page.scss'],
+  selector: 'app-compras',
+  templateUrl: './compras.page.html',
+  styleUrls: ['./compras.page.scss'],
 })
 
-export class VentasPage implements OnInit {
-  @ViewChild("lineCanvas") lineCanvas: ElementRef;
-  @ViewChild('initDateTime') initDateTime;
-  @ViewChildren('myVar') createdItems;
-  data1: any;
-  data2: any;
-  data3: any;
-  data4: any;
+export class ComprasPage implements OnInit {
   rows:any;
-  chartDataInfo :any;
   public initDate: Date;
   public initDateStr: string;
   public endDateStr: string;
@@ -38,11 +27,8 @@ export class VentasPage implements OnInit {
   public sumTransacciones: number = 0;
   selectValue : any;
   searchText: string = "";
- public groupedList : any;
- public groupedKeyList  : any;
   lstSucursales = new Array<Servidor>();
   lstSucursalesLocales = new Array<Sucursal>();
-  tablestyle = 'bootstrap';
   ipServer : string;
   nameServer : string;
   txtSucursal:string = "";
@@ -52,20 +38,18 @@ export class VentasPage implements OnInit {
   txtNombreSucursalInterna:string = "";
   filterMetadata = { count: 0 };
   currentDate: Date;
+  createdItems: any;
   constructor(public api: RestApiService, 
               public loadingController: LoadingController,
               public datepipe: DatePipe,
               public usrservice : UserService,
               public alertController : AlertController,
               public googleTransApi : GoogletranslateService,
-              private zone:NgZone,
               private popoverCtrl : PopoverController,
               public translate : TranslateService) {}
 
   ngOnInit() {
-    this.zone = new NgZone({ enableLongStackTrace: false });
     this.currentDate = new Date();
-
    this.initDateStr = this.currentDate.getFullYear()+ "-" + (this.currentDate.getMonth()+1) + "-" +  this.currentDate.getDate();
    this.endDateStr = this.currentDate.getFullYear()+ "-" + (this.currentDate.getMonth()+1) + "-" +  this.currentDate.getDate();
     this.initDate = new Date();
@@ -168,18 +152,18 @@ export class VentasPage implements OnInit {
  }
  groupElement(record,recordIndex,records){
   if ( recordIndex == 0){
-    if(record.Grupo != null || record.Grupo != undefined){
-      return record.Grupo.toUpperCase();
+    if(record.Proveedor != null || record.Proveedor != undefined){
+      return record.Proveedor.toUpperCase();
     }else{
       return null;
     }
     
   }
-  let almacenAnt = records[recordIndex - 1].Grupo;
-  let almacenAct = record.Grupo;
+  let almacenAnt = records[recordIndex - 1].Proveedor;
+  let almacenAct = record.Proveedor;
   if ((almacenAnt  !== null || almacenAnt !== undefined) && (almacenAct !== null|| almacenAct !== undefined)){
     if(almacenAnt !== almacenAct){
-      return record.Grupo.toUpperCase(); 
+      return record.Proveedor.toUpperCase(); 
     }
   }
 
@@ -188,8 +172,8 @@ export class VentasPage implements OnInit {
 }
   async getData() {
     this.sumTotal = 0;
-    this.searchText = '';   
-    this.sumTransacciones = 0;
+    this.searchText = '';  
+    this.sumTransacciones = 0; 
     if(!this.validateForm()){
       return;
     }
@@ -210,90 +194,15 @@ export class VentasPage implements OnInit {
     let finalDateFormated =this.datepipe.transform(this.endDateStr, 'yyyy-MM-dd');
    
 
-    await this.api.getVentas(initDateFormated,finalDateFormated,this.strSelectedIp,this.infraTipo,this.txtIdSucursalInterna)
+    await this.api.getCompras(this.strSelectedIp,this.infraTipo,this.txtIdSucursalInterna,initDateFormated,finalDateFormated)
       .subscribe(res => {
         console.log(res);
         this.rows = res[0];
         this.filterMetadata.count = this.rows.length;
-       
-        let grouped = this.groupBy(this.rows, row => row.Grupo);
-                    
-        /*this.rows.forEach(element => {
-            this.sumTotal = element.SubTotal + this.sumTotal;
-        });*/
-        console.log(this.createdItems.toArray().length);       
-        this.groupedKeyList =   Array.from(grouped.keys());
-        this.groupedList = grouped;
-        
-        if(this.usrservice.getUsuario().idioma !== "es"){
-
-          if(this.rows === undefined || this.rows.length ===0  ){
-            this.showAlert("No existen datos para traducir!", "");
+       /* this.rows.forEach(element => {
+          this.sumTotal = element.SubTotal + this.sumTotal;
+      });  */   
     
-          }else{
-            this.groupedKeyList.forEach(keyElement => {
-              let array = this.groupedList.get(keyElement);
-              
-              /*
-              let objGoogleMaster: GoogleObj = new GoogleObj();
-              objGoogleMaster.q = keyElement;
-              objGoogleMaster.target = this.usrservice.getUsuario().idioma;
-              this.googleTransApi.translate(objGoogleMaster).subscribe(
-                  (res: any) => {
-                    const index = this.groupedKeyList.findIndex((item) => item === keyElement);
-                    this.groupedKeyList[index] =  res.data.translations[0].translatedText; 
-                   // keyElement = res.data.translations[0].translatedText;                
-                  },
-                  err => {
-                    console.log(err);
-                  });*/
-                  
-              array.forEach(element => {
-                let objGoogle: GoogleObj = new GoogleObj();
-                objGoogle.q = [element.Producto.trim()];
-                objGoogle.target = this.usrservice.getUsuario().idioma;
-                 this.googleTransApi.translate(objGoogle).subscribe(
-                    (res: any) => {
-                      element.Producto = res.data.translations[0].translatedText;                                     
-                    },
-                    err => {
-                      console.log(err);
-                    });
-              });        
-            }); 
-
-           /* this.groupedKeyList.forEach(keyElement => {
-                let objGoogleMaster: GoogleObj = new GoogleObj();
-                objGoogleMaster.q = keyElement;
-                objGoogleMaster.target = this.usrservice.getUsuario().idioma;
-                this.googleTransApi.translate(objGoogleMaster).subscribe(
-                    (res: any) => {
-                      const index = this.groupedKeyList.findIndex((item) => item === keyElement);
-                      this.groupedKeyList[index] =  res.data.translations[0].translatedText; 
-                    // keyElement = res.data.translations[0].translatedText;                
-                    },
-                    err => {
-                      console.log(err);
-                    });
-              });
-         
-              console.log("List Despues Traducir FOR EACH" + this.groupedKeyList); */     
-            // Traduccion para uno solo
-            /*this.rows.forEach(element => {
-              let objGoogle: GoogleObj = new GoogleObj();
-              objGoogle.q = element.Producto;
-              objGoogle.target = this.usrservice.getUsuario().idioma;
-               this.googleTransApi.translate(objGoogle).subscribe(
-                  (res: any) => {
-                    element.Producto = res.data.translations[0].translatedText;                
-                  },
-                  err => {
-                    console.log(err);
-                  });
-            });*/
-          }
-          
-        }
         loading.dismiss();
 
       }, err => {
@@ -301,10 +210,10 @@ export class VentasPage implements OnInit {
         loading.dismiss();
       });
 
-      await this.api.getVentasTotal(initDateFormated,finalDateFormated,this.strSelectedIp,this.infraTipo,this.txtIdSucursalInterna)
+      await this.api.getComprasTotal(this.strSelectedIp,this.infraTipo,this.txtIdSucursalInterna,initDateFormated,finalDateFormated)
       .subscribe(res => {
         this.sumTotal = res[0].Total;
-        
+
         this.sumTransacciones= res[0].Transacciones;
       }, err => {
         console.log(err);
@@ -327,3 +236,4 @@ export class VentasPage implements OnInit {
 		await alert.present();
 	  }
 }
+

@@ -1,0 +1,48 @@
+<ion-header no-border>
+  <!--   <ion-toolbar>
+      <ion-title>Reporte de Ventas</ion-title>
+    </ion-toolbar> -->
+  
+    <ion-toolbar color="primary">
+      <ion-buttons slot="secondary">
+        
+        <ion-button (click)="search()">
+          <ion-icon slot="icon-only" name="search"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+     
+      <ion-title>{{'TABS_RESUMEN.title' | translate}}</ion-title>      
+      
+    </ion-toolbar>
+  
+    <ion-button name = "btnSucursales" *ngIf="lstSucursales?.length>1" expand = "full" (click)="mostrarPop($event)">
+        <ion-icon slot="icon-only" name="business"></ion-icon>
+        <ion-label [(ngModel)]="txtSucursal">{{'TABS_RESUMEN.sucursal' | translate}} {{ txtSucursal}}</ion-label>
+      </ion-button>
+     
+    
+      <ion-row>
+        <ion-col width = "50%">
+          <ion-item  >
+            <ion-label color="primary" position="floating">{{'TABS_RESUMEN.fecha_ini' | translate}}</ion-label>
+            <ion-datetime   #initDateTime  cancelText="Cancelar" doneText="OK" placeholder="Fecha Inicio" displayFormat="DD/MM/YYYY" [(ngModel)]="initDateStr"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col width = "50%">
+          <ion-item>
+            <ion-label color="primary" position="floating">{{'TABS_RESUMEN.fecha_fin' | translate}}</ion-label>
+            <ion-datetime cancelText="Cancelar" doneText="OK" displayFormat="DD/MM/YYYY" placeholder="Fecha Fin"  [(ngModel)]="endDateStr"></ion-datetime>
+          </ion-item>
+        </ion-col>         
+      </ion-row>
+    
+        
+  </ion-header>
+  
+  <ion-content padding>
+    <div [innerHTML]="resultStr | safeHtml"></div>
+ 
+  </ion-content>
+  
+ 
+  

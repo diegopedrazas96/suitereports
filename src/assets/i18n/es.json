@@ -12,11 +12,25 @@
         "sucursal" : "Sucursal",
         "grupo" : "Grupo"
     },
+    "TABS_COMPRAS":{
+        "title":"Reporte de Compras",
+        "fecha_ini" : "Desde",
+        "fecha_fin" : "Hasta",
+        "costo" : "Costo",
+        "det_cantidad" : "Cantidad",
+        "det_subtotal" : "SubTotal",
+        "det_total" : "Total",
+        "buscar" : "Buscar",
+        "sucursal" : "Sucursal",
+        "grupo" : "Proveedor"
+    },
     "TABS_GENERAL":{
         "tab_venta":"Ventas",
         "tab_factura" : "Facturas",
         "tab_inventario" : "Inventario",
-        "tab_perfil" : "Perfil"        
+        "tab_perfil" : "Perfil" ,
+        "tab_resumen" : "Resumen",
+        "tab_compra" : "Compras"       
     },
     "TABS_FACTURAS":{
         "title":"Reporte de Facturas",
@@ -28,7 +42,8 @@
         "det_imptneto" : "Importe Neto",
         "det_total" : "Total",
         "alert_suc" : "Seleccione una Sucursal!",
-        "alert_cargando" : "Cargando Información..."
+        "alert_cargando" : "Cargando Información...",
+        "nro_factura" : "Nro. Factura"
     },
     "TABS_INVENTARIO":{
         "title":"Reporte de Inventario",
@@ -36,7 +51,8 @@
         "disponible" : "Disponible",
         "almacen" : "Almacen",
         "costo" : "Costo",
-        "venta" : "Venta"
+        "venta" : "Venta",
+        "valorado" : "Inv. Valorado"
     },
     "TABS_PERFIL":{
         "title":"Datos de Perfil",
@@ -48,6 +64,12 @@
     },
     "MESSAGES":{
         "sin_datos_traducir":"No existen datos para traducir!"
+    },
+    "TABS_RESUMEN":{
+        "title":"Resumen General",
+        "fecha_ini" : "Desde",
+        "fecha_fin" : "Hasta",
+        "sucursal" : "Sucursal"
     }
        
 }

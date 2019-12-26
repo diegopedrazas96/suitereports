@@ -1,21 +1,33 @@
 <ion-tabs #tabs >
-	<ion-tab-bar slot="bottom" color="primary"> 
-		<ion-tab-button tab="ventas">
+	<ion-tab-bar slot="bottom" color="primary" no-padding no-margin class="no-border-radius segment-card"> 
+		<ion-tab-button tab="vacio" class="segment-item">
+			<ion-icon></ion-icon>
+			<ion-label></ion-label>
+		</ion-tab-button>
+		<ion-tab-button tab="ventas" class="segment-item">
 			<ion-icon name="cash"></ion-icon>
 			<ion-label>{{'TABS_GENERAL.tab_venta' | translate}}</ion-label>
 		</ion-tab-button>
-		<ion-tab-button tab="facturas">
+		<ion-tab-button tab="compras" class="segment-item">
+			<ion-icon name="cart"></ion-icon>
+			<ion-label>{{'TABS_GENERAL.tab_compra' | translate}}</ion-label>
+		</ion-tab-button>
+		<ion-tab-button tab="facturas" class="segment-item">
 				<ion-icon name="copy"></ion-icon>
 				<ion-label>{{'TABS_GENERAL.tab_factura' | translate}}</ion-label>
 			</ion-tab-button>
-		<ion-tab-button tab="inventario">
+		<ion-tab-button tab="inventario" class="segment-item">
 			<ion-icon name="barcode"></ion-icon>
 			<ion-label>{{'TABS_GENERAL.tab_inventario' | translate}}</ion-label>
 		</ion-tab-button>
-
-		<ion-tab-button tab="profile">
+		<ion-tab-button tab="resumen" class="segment-item">
+			<ion-icon name="analytics"></ion-icon>
+			<ion-label>{{'TABS_GENERAL.tab_resumen' | translate}}</ion-label>
+		</ion-tab-button>
+		<ion-tab-button tab="profile" class="segment-item">
 			<ion-icon name="contact"></ion-icon>
 			<ion-label>{{'TABS_GENERAL.tab_perfil' | translate}}</ion-label>
 		</ion-tab-button>
+		
 	</ion-tab-bar>
 </ion-tabs>

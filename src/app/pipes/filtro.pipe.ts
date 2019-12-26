@@ -9,18 +9,22 @@ export class FiltroPipe implements PipeTransform {
   transform(arreglo: any[], texto : string,filterMetadata : any, columna:string): any [] {
 
     if(texto === ''){
+      filterMetadata.count = arreglo.length;
       return arreglo;
     }
 
     texto = texto.toLowerCase();
-    arreglo.filter( item =>{
-      return item[columna].toLowerCase().includes(texto);
+    let filterArreglo = arreglo.filter( item =>{
+      if (item[columna]!== undefined && item[columna]!== null){
+        return item[columna].toLowerCase().includes(texto);
+      }
+     
   });
-  if(arreglo!== undefined){
-    filterMetadata.count = arreglo.length;
+  if(filterArreglo!== undefined){
+    filterMetadata.count = filterArreglo.length;
   }
     
-    return arreglo;
+    return filterArreglo;
     
   }
 

@@ -91,82 +91,95 @@ async showAlert(header:string,message:string) {
 				
 				
 		   }else{
+			let usrNew = new Usuario;
+			this.user.setUser(usrNew);
 			this.showAlert("Usuario No Encontrado","");
 			this.busy = false;
 		   }
 		});	
 		
 		const srvCompany = this.aff.httpsCallable('getCompany');
-		await srvCompany({ IdEmpresa: this.user.getUsuario().IdEmpresa }).toPromise().then(data => {
-						console.log(data);
-						if (data.length > 0) {
-							let empresa = new Empresa;
-							empresa.IdEmpresa = data[0].IdEmpresa;
-							empresa.Descripcion = data[0].Descripcion;
-							empresa.Tipo = data[0].Tipo;
-							empresa.Infraestructura = data[0].Infraestructura
-							this.user.setEmpresa(empresa);
-							
-						}
-						else {
-							this.showAlert("Empresa no Encontrada", "");
-							this.busy = false;
-						}
-					});	
-					const srvServidores = this.aff.httpsCallable('getServers');
-					await srvServidores({ IdEmpresa: this.user.getUsuario().IdEmpresa }).subscribe(data => {
-						console.log(data);
-						if (data.length > 0) {
-							let lstServidores = new Array<Servidor>();
-							data.forEach(element => {
-								let server = new Servidor();
-								server.IdEmpresa = element.IdEmpresa;
-								server.IdServidor = element.IdServidor;
-								server.dirIP = element.IP;
-								server.Nombre = element.Nombre;
-								server.Puerto = element.Puerto;
-								lstServidores.push(server);
-							});
-							this.user.setServidores(lstServidores);
-							let objInfraestructura = Infraestructura.Centralizado;
-							if ( this.user.getEmpresa().Infraestructura === Infraestructura[objInfraestructura]){
-								let diriP = this.user.getServidores()[0].dirIP;
-								//this.api.getSucursalesCentrales	
-								this.api.getSucursalesCentrales(diriP)
-								.subscribe(res => {
+		let usuarioRegis = this.user.getUsuario();
+		if (usuarioRegis.IdEmpresa != undefined ){
+			await srvCompany({ IdEmpresa: usuarioRegis.IdEmpresa }).toPromise().then(data => {
+				console.log(data);
+				if (data.length > 0) {
+					let empresa = new Empresa;
+					empresa.IdEmpresa = data[0].IdEmpresa;
+					empresa.Descripcion = data[0].Descripcion;
+					empresa.Tipo = data[0].Tipo;
+					empresa.Infraestructura = data[0].Infraestructura
+					this.user.setEmpresa(empresa);
+					
+				}
+				else {
+					this.showAlert("Empresa no Encontrada", "");
+					this.busy = false;
+				}
+			});	
+			const srvServidores = this.aff.httpsCallable('getServers');
+			await srvServidores({ IdEmpresa: this.user.getUsuario().IdEmpresa }).subscribe(data => {
+				console.log(data);
+				if (data.length > 0) {
+					let lstServidores = new Array<Servidor>();
+					data.forEach(element => {
+						let server = new Servidor();
+						server.IdEmpresa = element.IdEmpresa;
+						server.IdServidor = element.IdServidor;
+						server.dirIP = element.IP;
+						server.Nombre = element.Nombre;
+						server.Puerto = element.Puerto;
+						lstServidores.push(server);
+					});
+					this.user.setServidores(lstServidores);
+					let objInfraestructura = Infraestructura.Centralizado;
+					if ( this.user.getEmpresa().Infraestructura === Infraestructura[objInfraestructura]){
+						let diriP = this.user.getServidores()[0].dirIP;
+						//this.api.getSucursalesCentrales	
+						this.api.getSucursalesCentrales(diriP)
+						.subscribe(res => {
 
-									console.log(res);
-									let lstSucursales = new Array<Sucursal>();
-									if (res[0].length > 0) {
-										res[0].forEach((item) => {
-												let server = new Sucursal();
-												server.IdSucursal = item.IdSucursal;
-												server.Descripcion = item.Descripcion;
-												lstSucursales.push(server);																															
-										});
-									}
-									
-									
-									this.user.setSucursales(lstSucursales);							  
-								}, err => {
-									console.log(err);
+							console.log(res);
+							let lstSucursales = new Array<Sucursal>();
+							if (res[0].length > 0) {
+								res[0].forEach((item) => {
+										let server = new Sucursal();
+										server.IdSucursal = item.IdSucursal;
+										server.Descripcion = item.Descripcion;
+										lstSucursales.push(server);																															
 								});
 							}
-						}
-						else {
-							this.showAlert("Servidores no Encontrados!", "");
-							this.busy = false;
-						}
-					});	
-					
-					this.busy = false;
-				this.showAlert("Usuario Correcto","");
-				let  usr = this.user.getUsuario();
-				if(usr.multiidioma){
-					this.router.navigate(['/language']);	
-				}else{
-					this.router.navigate(['/tabs']);	
+							
+							
+							this.user.setSucursales(lstSucursales);							  
+						}, err => {
+							console.log(err);
+						});
+					}
 				}
+				else {
+					this.showAlert("Servidores no Encontrados!", "");
+					this.busy = false;
+				}
+			});	
+			
+			
+		//this.showAlert("Usuario Correcto","");
+				
+		let  usr = this.user.getUsuario();
+		setTimeout(() => 
+		{
+			this.busy = false;
+			if(usr.multiidioma){
+				this.router.navigate(['/language']);	
+			}else{
+				this.router.navigate(['/tabs']);	
+			}
+		},
+		2000);
+		}
+		
+				
 		} catch(err) {
 			console.dir(err)
 			this.busy = false;

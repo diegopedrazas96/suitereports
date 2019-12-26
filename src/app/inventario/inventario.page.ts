@@ -25,6 +25,10 @@ export class InventarioPage implements OnInit {
   infraTipo: string;
   txtIdSucursalInterna: string = "vacio";
   txtNombreSucursalInterna: string = "";
+  filterMetadata = { count: 0 };
+  public sumTotal: number = 0;
+  public sumTransacciones: number = 0;
+
   constructor(public api: RestApiService, 
     public loadingController: LoadingController,
     public usrservice : UserService,
@@ -100,8 +104,34 @@ async mostrarPop(evento){
  await popover.present();
 
 }
-async getData() {
 
+groupElementWarehouse(record,recordIndex,records){
+  if ( recordIndex == 0){
+    return record.IdAlmacen.toUpperCase();
+  }
+
+  let almacenAnt = records[recordIndex - 1].IdAlmacen;
+  let almacenAct = record.IdAlmacen;
+  if ((almacenAnt  !== null || almacenAnt !== undefined) && (almacenAct !== null|| almacenAct !== undefined)){
+    if(almacenAnt !== almacenAct){
+      return record.IdAlmacen.toUpperCase(); 
+    }
+  }
+
+  return null;
+
+}
+
+myHeaderFn(record, recordIndex, records) {
+  if (recordIndex % 20 === 0) {
+    return 'Header ' + recordIndex;
+  }
+  return null;
+}
+async getData() {
+  this.sumTotal = 0;
+  this.searchText = '';
+  this.sumTransacciones = 0;   
         if(this.lstSucursales.length === 1){
           this.strSelectedIp = this.lstSucursales[0].dirIP + ":" + this.lstSucursales[0].Puerto;
       }else{
@@ -133,10 +163,14 @@ async getData() {
       .subscribe(res => {
             console.log(res);
             this.lstResult = res[0];
+            this.filterMetadata.count = this.lstResult.length;
+            this.sumTransacciones = this.lstResult.length;
             let grouped = this.groupBy(this.lstResult, row => row.IdAlmacen);
             this.groupedKeyList =   Array.from(grouped.keys());
             this.groupedList = grouped;
-
+            this.lstResult.forEach(element => {
+              this.sumTotal = (element.Costo * element.Dispone) + this.sumTotal;
+          });
 
             if(this.usrservice.getUsuario().idioma !== "es"){
 

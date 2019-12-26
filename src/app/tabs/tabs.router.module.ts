@@ -12,6 +12,8 @@ const routes: Routes = [
 			{ path: 'facturas', loadChildren: '../facturas/facturas.module#FacturasPageModule' },
 			{ path: 'inventario', loadChildren: '../inventario/inventario.module#InventarioPageModule' },
 			{ path: 'reportpage', loadChildren: '../reportpage/reportpage.module#ReportpagePageModule' },
+			{ path: 'resumen', loadChildren: '../resumen/resumen.module#ResumenPageModule' },
+			{ path: 'compras', loadChildren: '../compras/compras.module#ComprasPageModule' },
 		]
 	}	
 ];

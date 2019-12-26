@@ -50,30 +50,60 @@
       
     
     
-    
+    <!-- 
     <ion-list>
-      <ion-item #myVar button detail line="inset" *ngFor= "let obj of rows | filtrofactura : searchText : 'Nit' :'Nombre'">
+      <ion-item #myVar button detail line="inset" *ngFor= "let obj of rows | filtrofactura : searchText : filterMetadata: 'Nit' :'Nombre'">
         <ion-label text-wrap>
           <h2>{{obj.Fecha | date: 'dd/MM/yyyy'}}</h2>
+          <p>{{'TABS_FACTURAS.nro_factura' | translate}}:{{obj.IdFactura}} </p>
           <p>{{'TABS_FACTURAS.det_nit' | translate}}:{{obj.Nit}} {{'TABS_FACTURAS.det_nombre' | translate}}:{{ obj.Nombre}}</p>
           <ion-text color="success">
-              <p>{{'TABS_FACTURAS.det_imptneto' | translate}}:{{ obj.ImporteNeto | currency:'Bs.':'code' }}</p>
+              <p>{{'TABS_FACTURAS.det_imptneto' | translate}} {{ obj.ImporteNeto | currency:'Bs.':'code' }}</p>
             </ion-text>           
         </ion-label>
         <ion-reorder slot="end"></ion-reorder>
       </ion-item>
-    </ion-list>
+    </ion-list> -->
     
+    <ion-virtual-scroll [items]= " rows | filtrofactura : searchText : filterMetadata: 'Nit' :'Nombre'" approxItemHeight="450px"  >
+        
+      <ion-item-group  *virtualItem="let obj; let itemBounds = bounds;" >
+           <ion-label padding text-wrap>
+            <h2>{{obj.Fecha | date: 'dd/MM/yyyy'}}</h2>
+            <p>{{'TABS_FACTURAS.nro_factura' | translate}}:{{obj.IdFactura}} </p>
+            <p>{{'TABS_FACTURAS.det_nit' | translate}}:{{obj.Nit}} {{'TABS_FACTURAS.det_nombre' | translate}}:{{ obj.Nombre}}</p>
+            <ion-text color="success">
+                <p>{{'TABS_FACTURAS.det_imptneto' | translate}} {{ obj.ImporteNeto | currency:'Bs.':'code' }}</p>
+              </ion-text> 
+          </ion-label>
+          <ion-reorder slot="end"></ion-reorder>
+        </ion-item-group>
+      
+    </ion-virtual-scroll>
     
     
     </ion-content>
     
     <ion-footer>
+       
         <ion-toolbar color="success">
-            <ion-item  text-right color="success"> 
+          <ion-row no-padding >
+            <ion-col width = "10%" no-padding>
+              <ion-item  text-left color="success"> 
+                <ion-label  [(ngModel)]="filterMetadata">R.{{ filterMetadata.count }}</ion-label>                    
+                </ion-item> 
+            </ion-col>
+            <ion-col width = "10%" no-padding>
+              <ion-item  text-left color="success"> 
+                <ion-label  [(ngModel)]="sumTransacciones">T. {{ sumTransacciones }}</ion-label>                    
+                </ion-item> 
+            </ion-col>
+            <ion-col width = "50%" no-padding>
+              <ion-item  text-right color="success"> 
                 <ion-label [(ngModel)]="sumTotal">{{'TABS_FACTURAS.det_total' | translate}}:{{sumTotal | currency:'Bs.':'code' }}</ion-label>                    
               </ion-item> 
-           
+            </ion-col>         
+          </ion-row>
         </ion-toolbar>
       </ion-footer>
     

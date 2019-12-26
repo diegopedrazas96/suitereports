@@ -1,0 +1,9 @@
+.segment-card {
+    display: flex;
+    overflow-x: scroll;
+    .segment-item {
+        display: inline-block !important;
+        
+        width: auto !important;
+    }
+}

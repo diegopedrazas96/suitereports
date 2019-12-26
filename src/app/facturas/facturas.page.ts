@@ -26,6 +26,7 @@ export class FacturasPage implements OnInit {
   public initDate: String;
   public endDate : String;
   public sumTotal: number = 0;
+  public sumTransacciones: number = 0;
   lstSucursales = new Array<Servidor>();
   txtSucursal:string = "";
   strSelectedIp : string = "";
@@ -34,6 +35,8 @@ export class FacturasPage implements OnInit {
   txtIdSucursalInterna: string = "vacio";
   txtNombreSucursalInterna : string = "";
   infraTipo: string = "";
+  filterMetadata = { count: 0 };
+  currentDate: Date;
   constructor(public api: RestApiService, 
               public loadingController: LoadingController,
               public datepipe: DatePipe,
@@ -44,8 +47,10 @@ export class FacturasPage implements OnInit {
               public translate: TranslateService) { }
 
   ngOnInit() {
-    this.initDate = new Date().toISOString();
-    this.endDate = new Date().toISOString();
+    this.currentDate = new Date();
+    this.initDate = this.currentDate.getFullYear()+ "-" + (this.currentDate.getMonth()+1) + "-" +  this.currentDate.getDate();
+    this.endDate = this.currentDate.getFullYear()+ "-" + (this.currentDate.getMonth()+1) + "-" +  this.currentDate.getDate();
+    let variable = new Date().toISOString();
     this.lstSucursales = this.usrservice.getServidores();
     this.infraTipo = this.usrservice.getEmpresa().Infraestructura;
      
@@ -125,7 +130,9 @@ export class FacturasPage implements OnInit {
      return true;
 }
   async getData() {
-
+    this.sumTotal = 0;
+    this.searchText = '';   
+    this.sumTransacciones = 0;
   if(!this.validateForm()){
     return;
   }
@@ -142,14 +149,16 @@ export class FacturasPage implements OnInit {
       message: valorLoading,
     });
     await loading.present();
-    let initDateFormated =this.datepipe.transform(this.initDate, 'yyyy-MM-dd');
-    let finalDateFormated =this.datepipe.transform(this.endDate, 'yyyy-MM-dd');
+    let initDateFormated =this.datepipe.transform(this.initDate, 'yyyy-MM-dd','GMT-4');
+    let finalDateFormated =this.datepipe.transform(this.endDate, 'yyyy-MM-dd','GMT-4');
  
 
     this.api.getFacturas(initDateFormated,finalDateFormated,this.strSelectedIp,this.infraTipo,this.txtIdSucursalInterna)
       .subscribe(res => {
         console.log(res);
         this.rows = res[0];
+        this.filterMetadata.count = this.rows.length;
+        this.sumTransacciones = this.rows.length;
         this.rows.forEach(element => {
             this.sumTotal = element.ImporteNeto + this.sumTotal;
         });
@@ -177,6 +186,10 @@ export class FacturasPage implements OnInit {
           }
           
         }*/
+
+
+
+
         loading.dismiss();
       }, err => {
         console.log(err);

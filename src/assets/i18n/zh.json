@@ -12,11 +12,26 @@
         "sucursal" : "分公司",
         "grupo" : "组别"
     },
+    "TABS_COMPRAS":{
+        "title":"采购报告",
+        "fecha_ini" : "首页",
+        "fecha_fin" : "完结",
+        "sub_title" : "销售明细",
+        "costo" : "费用",
+        "det_cantidad" : "数量",
+        "det_subtotal" : "小计",
+        "det_total" : "合计",        
+        "buscar" : "寻找",
+        "sucursal" : "分公司",
+        "grupo" : "供应商"
+    },
     "TABS_GENERAL":{
         "tab_venta":"销售量",
         "tab_factura" : "发票",
         "tab_inventario" : "库存",
-        "tab_perfil" : "个人资料"        
+        "tab_perfil" : "个人资料",
+        "tab_resumen" : "总结",
+        "tab_compra" : "逛街"      
     },
     "TABS_FACTURAS":{
         "title":"发票报告",
@@ -28,7 +43,8 @@
         "det_imptneto" : "净额",
         "det_total" : "合计",
         "alert_suc" : "选择一个分支！",
-        "alert_cargando" : "加载信息..."
+        "alert_cargando" : "加载信息...",
+        "nro_factura" : "发票号码"
     },
     "TABS_INVENTARIO":{
         "title":"库存报告",
@@ -36,7 +52,8 @@
         "disponible" : "可用的",
         "almacen" : "仓库",
         "costo" : "费用",
-        "venta" : "特卖"
+        "venta" : "特卖",
+        "valorado" : "存货价值"
     },
     "TABS_PERFIL":{
         "title":"个人资料数据",
@@ -48,5 +65,11 @@
     },
     "MESSAGES":{
         "sin_datos_traducir":"没有要翻译的数据！"
+    },
+    "TABS_RESUMEN":{
+        "title":"一般总结",
+        "fecha_ini" : "首页",
+        "fecha_fin" : "完结",
+        "sucursal" : "分公司"
     }
 }

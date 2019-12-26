@@ -53,7 +53,7 @@
 
 <ion-content padding>
   
-<ion-list>
+<!-- <ion-list>
   
   <ion-item-group *ngFor= "let obj2 of groupedKeyList " >
     <ion-item-divider sticky="true" color="secondary">{{'TABS_VENTAS.grupo' | translate}}: {{obj2}}</ion-item-divider>
@@ -68,19 +68,49 @@
     <ion-reorder slot="end"></ion-reorder>
   </ion-item-group>
 
-</ion-list>
+</ion-list> -->
+
+<ion-virtual-scroll [items]="rows | filtro : searchText : filterMetadata: 'Producto'" approxItemHeight="450px"  [headerFn]="groupElement">
+  <ion-item-divider sticky="true" color="secondary" *virtualHeader="let header">{{'TABS_VENTAS.grupo' | translate}}:{{header}}</ion-item-divider> 
+     
+  <ion-item-group  *virtualItem="let obj; let itemBounds = bounds;" >
+       <ion-label padding text-wrap>
+          <h2>{{obj.IdProducto + " " + obj.Producto}}</h2> 
+          <p>{{'TABS_VENTAS.det_precio' | translate}}:{{obj.Precio | currency:'Bs.':'code'}}</p>
+          <ion-text color="success">
+            <p>{{'TABS_VENTAS.det_cantidad' | translate}}:{{obj.Cantidad}}</p>  
+          </ion-text>
+         <!--  <ion-text color="success">
+            <p>{{'TABS_VENTAS.det_subtotal' | translate}}: {{obj.SubTotal | currency:'Bs.':'code'}}</p>
+          </ion-text>  -->   
+      </ion-label>
+      <ion-reorder slot="end"></ion-reorder>
+    </ion-item-group>
+  
+</ion-virtual-scroll>
 
 </ion-content>
 
-<ion-footer>
+<ion-footer >
    
   <ion-toolbar color="success">
+  <ion-row no-padding>
+    <ion-col width = "10%" no-padding>
+      <ion-item  text-left color="success"> 
+        <ion-label  [(ngModel)]="filterMetadata">R.{{ filterMetadata.count }}</ion-label>                    
+        </ion-item> 
+    </ion-col>
+    <ion-col width = "10%" no-padding>
+      <ion-item  text-left color="success"> 
+        <ion-label  [(ngModel)]="sumTransacciones">T.{{ sumTransacciones }}</ion-label>                    
+        </ion-item> 
+    </ion-col>
+    <ion-col width = "50%" no-padding>
       <ion-item  text-right color="success"> 
-        <ion-label ngDefaultControl [(ngModel)]="sumTotal">{{'TABS_VENTAS.det_total' | translate}} {{sumTotal | currency:'Bs.':'code' }}</ion-label>                    
-        </ion-item>     
-        <ion-item  text-left color="success"> 
-          <ion-label ngDefaultControl [(ngModel)]="filterMetadata">{{ filterMetadata.count }}</ion-label>                    
-          </ion-item> 
-  </ion-toolbar>
+        <ion-label  [(ngModel)]="sumTotal">{{'TABS_VENTAS.det_total' | translate}} {{sumTotal | currency:'Bs.':'code' }}</ion-label>                    
+        </ion-item>
+    </ion-col>         
+  </ion-row>
+</ion-toolbar>
    
   </ion-footer>

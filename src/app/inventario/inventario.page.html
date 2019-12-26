@@ -22,9 +22,9 @@
           <ion-label [(ngModel)]="txtNombreSucursalInterna">{{'TABS_VENTAS.sucursal' | translate}} {{ txtNombreSucursalInterna}}</ion-label>
         </ion-button>
 
-        <ion-item color="primary">
+       <!--  <ion-item color="primary">
             <ion-title size="small" text-center >{{'TABS_INVENTARIO.sub_title' | translate}}</ion-title>     
-        </ion-item>
+        </ion-item> -->
        
 
         <ion-searchbar  animated [(ngModel)]="searchText" placeholder="{{'TABS_VENTAS.buscar' | translate}}" color="primary" (ionChange)="buscar($event)"></ion-searchbar>
@@ -50,7 +50,7 @@
     
     </ion-list> -->
 
-    <ion-virtual-scroll [items]="groupedKeyList" approxItemHeight="450px">
+  <!--   <ion-virtual-scroll [items]="groupedKeyList" approxItemHeight="450px">
         <ion-item-group  *virtualItem="let obj2; let itemBounds = bounds;" >
             <ion-item-divider sticky="true" color="secondary">{{'TABS_INVENTARIO.almacen' | translate}}:{{obj2}}</ion-item-divider>
             <ion-label padding text-wrap *ngFor= "let obj of groupedList.get(obj2) | filtro : searchText : 'Producto'">
@@ -64,9 +64,45 @@
             <ion-reorder slot="end"></ion-reorder>
           </ion-item-group>
         
+      </ion-virtual-scroll> -->
+
+      <ion-virtual-scroll [items]="lstResult | filtro : searchText : filterMetadata: 'Producto'" approxItemHeight="450px"  [headerFn]="groupElementWarehouse">
+        <ion-item-divider sticky="true" color="secondary" *virtualHeader="let header">{{'TABS_INVENTARIO.almacen' | translate}}:{{header}}</ion-item-divider> 
+           
+        <ion-item-group  *virtualItem="let obj; let itemBounds = bounds;" >
+             <ion-label padding text-wrap>
+                <h2>{{obj.IdProducto + " " + obj.Producto}}</h2> 
+                <p>{{'TABS_INVENTARIO.costo' | translate}}:{{obj.Costo | currency:'Bs.':'code'}}</p>
+                <p>{{'TABS_INVENTARIO.venta' | translate}}:{{obj.Venta | currency:'Bs.':'code'}}</p>            
+              <ion-text color="success">
+                  <p>{{'TABS_INVENTARIO.disponible' | translate}}: {{obj.Dispone}}</p>
+                </ion-text>   
+            </ion-label>
+            <ion-reorder slot="end"></ion-reorder>
+          </ion-item-group>
+        
       </ion-virtual-scroll>
           
     </ion-content>
+
+    <ion-footer>
+       
+      <ion-toolbar color="success">
+        <ion-row no-padding >
+          <ion-col width = "50%" no-padding>
+            <ion-item  text-left color="success"> 
+              <ion-label  [(ngModel)]="filterMetadata">R.{{ filterMetadata.count }}</ion-label>                    
+              </ion-item> 
+          </ion-col>
+          
+          <ion-col width = "50%" no-padding>
+            <ion-item  text-right color="success"> 
+              <ion-label [(ngModel)]="sumTotal">{{'TABS_INVENTARIO.valorado' | translate}} {{sumTotal | currency:'Bs.':'code' }}</ion-label>                    
+            </ion-item> 
+          </ion-col>         
+        </ion-row>
+      </ion-toolbar>
+    </ion-footer>
     
   
     
