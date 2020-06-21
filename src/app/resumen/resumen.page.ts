@@ -39,8 +39,8 @@ export class ResumenPage implements OnInit {
   ngOnInit() {
     this.currentDate = new Date();
 
-    this.initDateStr = this.currentDate.getFullYear()+ "-" + (this.currentDate.getMonth()+1) + "-" +  this.currentDate.getDate();
-    this.endDateStr = this.currentDate.getFullYear()+ "-" + (this.currentDate.getMonth()+1) + "-" +  this.currentDate.getDate();
+    this.initDateStr = this.currentDate.getFullYear()+ "-" + (this.currentDate.getMonth()+1).toString().padStart(2,'0') + "-" +  (this.currentDate.getDate()).toString().padStart(2,'0');
+    this.endDateStr = this.currentDate.getFullYear()+ "-" + (this.currentDate.getMonth()+1).toString().padStart(2,'0') + "-" +  (this.currentDate.getDate()).toString().padStart(2,'0');
    
      this.initDate = new Date();
      this.endDate = new Date();  

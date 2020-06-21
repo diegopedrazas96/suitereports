@@ -48,8 +48,8 @@ export class FacturasPage implements OnInit {
 
   ngOnInit() {
     this.currentDate = new Date();
-    this.initDate = this.currentDate.getFullYear()+ "-" + (this.currentDate.getMonth()+1) + "-" +  this.currentDate.getDate();
-    this.endDate = this.currentDate.getFullYear()+ "-" + (this.currentDate.getMonth()+1) + "-" +  this.currentDate.getDate();
+    this.initDate = this.currentDate.getFullYear()+ "-" + (this.currentDate.getMonth()+1).toString().padStart(2,'0') + "-" +  (this.currentDate.getDate()).toString().padStart(2,'0');
+    this.endDate = this.currentDate.getFullYear()+ "-" + (this.currentDate.getMonth()+1).toString().padStart(2,'0') + "-" +  (this.currentDate.getDate()).toString().padStart(2,'0');
     let variable = new Date().toISOString();
     this.lstSucursales = this.usrservice.getServidores();
     this.infraTipo = this.usrservice.getEmpresa().Infraestructura;

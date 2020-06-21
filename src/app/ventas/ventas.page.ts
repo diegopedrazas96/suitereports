@@ -66,8 +66,8 @@ export class VentasPage implements OnInit {
     this.zone = new NgZone({ enableLongStackTrace: false });
     this.currentDate = new Date();
 
-   this.initDateStr = this.currentDate.getFullYear()+ "-" + (this.currentDate.getMonth()+1) + "-" +  this.currentDate.getDate();
-   this.endDateStr = this.currentDate.getFullYear()+ "-" + (this.currentDate.getMonth()+1) + "-" +  this.currentDate.getDate();
+   this.initDateStr = this.currentDate.getFullYear()+ "-" + (this.currentDate.getMonth()+1).toString().padStart(2,'0') + "-" +  (this.currentDate.getDate()).toString().padStart(2,'0');
+   this.endDateStr = this.currentDate.getFullYear()+ "-" + (this.currentDate.getMonth()+1).toString().padStart(2,'0') + "-" +  (this.currentDate.getDate()).toString().padStart(2,'0');
     this.initDate = new Date();
     this.endDate = new Date();  
     this.infraTipo = this.usrservice.getEmpresa().Infraestructura;
@@ -79,6 +79,10 @@ export class VentasPage implements OnInit {
 
   
   search(){
+    if(this.lstSucursales === undefined ){
+      this.lstSucursales = this.usrservice.getServidores()  ;
+      this.lstSucursalesLocales = this.usrservice.getSucursales()  ;
+    }
     this.getData();
   }
 
